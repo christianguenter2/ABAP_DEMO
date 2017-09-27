@@ -1,0 +1,54 @@
+<xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:sap="http://www.sap.com/sapxsl" version="1.0">
+
+  <xsl:strip-space elements="*"/>
+
+  <xsl:template match="/Pet">
+
+    <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+      <asx:values>
+        <PET>
+          <ID>
+            <xsl:value-of select="/Pet/id"/>
+          </ID>
+
+          <CATEGORY>
+            <ID>
+              <xsl:value-of select="/Pet/category/id"/>
+            </ID>
+            <NAME>
+              <xsl:value-of select="/Pet/category/name"/>
+            </NAME>
+          </CATEGORY>
+
+          <PHOTOURLS>
+            <xsl:for-each select="/Pet/photoUrls">
+              <item>
+                <xsl:value-of select="photoUrl"/>
+              </item>
+            </xsl:for-each>
+          </PHOTOURLS>
+
+          <TAGS>
+            <xsl:for-each select="/Pet/tags/tag">
+              <item>
+                <ID>
+                  <xsl:value-of select="id"/>
+                </ID>
+                <NAME>
+                  <xsl:value-of select="name"/>
+                </NAME>
+              </item>
+            </xsl:for-each>
+          </TAGS>
+
+          <STATUS>
+            <xsl:value-of select="/Pet/status"/>
+          </STATUS>
+
+        </PET>
+      </asx:values>
+    </asx:abap>
+
+  </xsl:template>
+
+</xsl:transform>

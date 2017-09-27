@@ -1,0 +1,4 @@
+REPORT z_test_color.
+
+WRITE: / `Test` COLOR COL_NEGATIVE.
+WRITE: / `Test` COLOR COL_POSITIVE.
