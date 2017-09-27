@@ -1,30 +1,16 @@
 *&---------------------------------------------------------------------*
-*& Report  Z_TEST_UZEIT
-*&
+*& Report z_test_uzeit
 *&---------------------------------------------------------------------*
 *&
-*&
 *&---------------------------------------------------------------------*
+REPORT z_test_uzeit.
 
-REPORT Z_TEST_UZEIT.
+DATA: uzeit  TYPE sy-uzeit,
+      uzeit2 TYPE sy-uzeit.
 
-data: datum TYPE syst-datum,
-      zeit TYPE syst-uzeit,
-      timestamp TYPE timestampl,
-      tz TYPE tzonref-tzone VALUE 'UTC+8'.
+uzeit  = sy-uzeit.
+uzeit2 = uzeit - 30.
 
-zeit = sy-uzeit.
-
-WRITE:/ zeit.
-
-get TIME STAMP FIELD timestamp.
-
-write: / timestamp.
-
-CONVERT time STAMP timestamp
-        TIME ZONE tz
-        INTO date datum
-             time zeit.
-
-WRITE: / datum.
-WRITE: / zeit.
+cl_demo_output=>write( uzeit ).
+cl_demo_output=>write( uzeit2 ).
+cl_demo_output=>display( ).

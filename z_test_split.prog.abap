@@ -1,12 +1,12 @@
+*&---------------------------------------------------------------------*
+*& Report z_test_split
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
 REPORT z_test_split.
 
-DATA(test) = 'Hallo Welt'.
-DATA: chars TYPE STANDARD TABLE OF char01.
+DATA(text) =  `| |X|X|`.
 
-DO strlen( test ) TIMES.
-  DATA(index) = sy-index - 1.
-  DATA(char)  = test+index(1).
-  INSERT char INTO TABLE chars.
-ENDDO.
+SPLIT text AT `|` INTO TABLE DATA(table).
 
-cl_demo_output=>display( chars ).
+cl_demo_output=>display( table ).

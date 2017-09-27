@@ -1,10 +1,9 @@
 *<SCRIPT:PERSISTENT>
-REPORT  rstpda_script_template.
+REPORT zrstpda_script_wp_field_symbol.
 
 *<SCRIPT:HEADER>
 *<SCRIPTNAME>ZRSTPDA_SCRIPT_WP_FIELD_SYMBOL</SCRIPTNAME>
 *<SCRIPT_CLASS>LCL_DEBUGGER_SCRIPT</SCRIPT_CLASS>
-*<SCRIPT_COMMENT>Watchpoint at field-symbol</SCRIPT_COMMENT>
 *<SINGLE_STEP>X</SINGLE_STEP>
 
 *</SCRIPT:HEADER>
@@ -29,7 +28,7 @@ CLASS lcl_debugger_script DEFINITION INHERITING FROM  cl_tpda_script_class_super
   PRIVATE SECTION.
     DATA: returncode   TYPE char01,
           field_symbol TYPE string,
-          old_value    TYPE tpda_var_value.
+          old_value    TYPE tpda_var_value_hex.
 
 ENDCLASS.                    "lcl_debugger_script DEFINITION
 *---------------------------------------------------------------------*
@@ -76,7 +75,7 @@ CLASS lcl_debugger_script IMPLEMENTATION.
   METHOD script.
 
     TRY.
-        DATA(new_value) = cl_tpda_script_data_descr=>get_simple_value( CONV #( field_symbol ) ).
+        DATA(new_value) = cl_tpda_script_structdescr=>get_variable_info( field_symbol )-varvalhex.
 
         IF new_value <> old_value.
           DATA(text) = |Watchpoint { field_symbol } reached|.

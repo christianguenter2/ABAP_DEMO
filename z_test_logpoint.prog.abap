@@ -5,16 +5,56 @@
 *&---------------------------------------------------------------------*
 REPORT z_test_logpoint.
 
-DATA(rnd) = cl_abap_random_int=>create(
-                    seed = CONV #( sy-uzeit )
-                    min  = 0
-                    max  = 100 ).
+CLASS test_log_point DEFINITION CREATE PUBLIC.
 
-DATA(random_numbers) = VALUE int_tab1(
-                         FOR n = 0
-                         WHILE n < 10
-                         ( rnd->get_next( ) ) ).
+  PUBLIC SECTION.
 
-IF sy-subrc = 0.
+    METHODS: start.
 
-ENDIF.
+  PRIVATE SECTION.
+
+    TYPES: BEGIN OF ty_data,
+             i TYPE i,
+             s TYPE string,
+           END OF ty_data,
+           tty_data TYPE STANDARD TABLE OF ty_data
+                    WITH NON-UNIQUE DEFAULT KEY.
+
+    DATA: table TYPE tty_data.
+
+ENDCLASS.
+
+CLASS test_log_point IMPLEMENTATION.
+
+  METHOD start.
+
+    DATA(x) = |Test|.
+
+    DO 5 TIMES.
+      INSERT VALUE #( i = 1 s = `test` ) INTO TABLE table.
+    ENDDO.
+
+    SELECT *
+           FROM t100
+           INTO TABLE @DATA(t100_tab)
+           UP TO 100 ROWS.
+
+    TRY.
+        cl_salv_table=>factory(
+          IMPORTING
+            r_salv_table   = DATA(alv)
+          CHANGING
+            t_table        = t100_tab ).
+
+        alv->display( ).
+
+      CATCH cx_salv_msg INTO DATA(error).    "
+        MESSAGE error TYPE 'S' DISPLAY LIKE 'E'.
+    ENDTRY.
+
+  ENDMETHOD.
+
+ENDCLASS.
+
+START-OF-SELECTION.
+  NEW test_log_point( )->start( ).

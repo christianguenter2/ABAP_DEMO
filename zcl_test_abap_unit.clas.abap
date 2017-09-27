@@ -1,23 +1,59 @@
-class ZCL_TEST_ABAP_UNIT definition
-  public
-  final
-  create public .
+CLASS zcl_test_abap_unit DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
+    METHODS:
+      start,
+      start2.
 
-  class-methods TEST
-    returning
-      value(R_TEXT) type STRING .
-protected section.
-private section.
+  PRIVATE SECTION.
+    METHODS _do_something.
+    METHODS _test
+      IMPORTING
+        i_text        TYPE string
+      EXPORTING
+        e_text        TYPE string
+      CHANGING
+        c_text        TYPE string
+      RETURNING
+        VALUE(r_text) TYPE string.
+
 ENDCLASS.
 
 
 
-CLASS ZCL_TEST_ABAP_UNIT IMPLEMENTATION.
+CLASS zcl_test_abap_unit IMPLEMENTATION.
+
+  METHOD start.
+
+    _do_something( ).
+
+  ENDMETHOD.
+
+  METHOD _do_something.
+
+    DATA: t TYPE string.
+
+    _test( EXPORTING i_text = | |
+           IMPORTING e_text = DATA(z)
+           CHANGING  c_text = t
+           RECEIVING r_text = DATA(x) ).
+
+    DATA(table) = VALUE stringtab( ( ) ).
+
+  ENDMETHOD.
+
+  METHOD start2.
+
+    _do_something( ).
+
+  ENDMETHOD.
 
 
-method TEST.
-  r_text = 'Test'.
-endmethod.
+  METHOD _test.
+
+  ENDMETHOD.
+
 ENDCLASS.

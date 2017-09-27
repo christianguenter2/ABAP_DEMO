@@ -4,7 +4,6 @@ REPORT  rstpda_script_template.
 *<SCRIPT:HEADER>
 *<SCRIPTNAME>ZRSTPDA_SCRIPT_STATEMENT_BREAK</SCRIPTNAME>
 *<SCRIPT_CLASS>LCL_DEBUGGER_SCRIPT</SCRIPT_CLASS>
-*<SCRIPT_COMMENT>Debugger Skript: Default Template</SCRIPT_COMMENT>
 *<SINGLE_STEP>X</SINGLE_STEP>
 
 *</SCRIPT:HEADER>
@@ -22,9 +21,9 @@ REPORT  rstpda_script_template.
 CLASS lcl_debugger_script DEFINITION INHERITING FROM  cl_tpda_script_class_super.
   PUBLIC SECTION.
     METHODS: prologue  REDEFINITION,
-      init      REDEFINITION,
-      script    REDEFINITION,
-      end       REDEFINITION.
+             init      REDEFINITION,
+             script    REDEFINITION,
+             end       REDEFINITION.
 
   PRIVATE SECTION.
 
@@ -42,19 +41,18 @@ CLASS lcl_debugger_script IMPLEMENTATION.
   ENDMETHOD.                    "prolog
 
   METHOD init.
-
     DATA: fields TYPE STANDARD TABLE OF sval.
 
     INSERT VALUE #( tabname   = 'DD03L'
                     fieldname = 'FIELDNAME'
-                    fieldtext = 'Pattern'(001)
+                    FIELDTEXT = 'Pattern'
                     field_obl = abap_true )
            INTO TABLE fields
            ASSIGNING FIELD-SYMBOL(<filter>).
 
     CALL FUNCTION 'POPUP_GET_VALUES'
       EXPORTING
-        popup_title     = TEXT-001    " Text der Titelzeile
+        popup_title     = 'Filter'    " Text der Titelzeile
       IMPORTING
         returncode      = returncode    " Antwort des Anwenders
       TABLES

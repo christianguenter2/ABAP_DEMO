@@ -6,11 +6,9 @@
     <NAME>ZRSTPDA_SCRIPT_SHOW_LOG</NAME>
     <STATE>A</STATE>
     <VARCL>X</VARCL>
-    <DBAPL>S</DBAPL>
     <SUBC>S</SUBC>
-    <APPL>X</APPL>
+    <RLOAD>D</RLOAD>
     <FIXPT>X</FIXPT>
-    <LDBNAME>D$S</LDBNAME>
     <UCCHECK>X</UCCHECK>
    </PROGDIR>
   </asx:values>

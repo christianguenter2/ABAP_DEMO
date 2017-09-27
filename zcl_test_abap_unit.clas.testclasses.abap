@@ -1,49 +1,60 @@
-*"* use this source file for your ABAP unit test
+*"* use this source file for your ABAP unit test classes
 
-DEFINE def_meth.
-  data: name TYPE string.
-  METHODS: &1,
-           &2 FOR TESTING.
-END-OF-DEFINITION.
+CLASS test_abap_unit DEFINITION FINAL FOR TESTING
+  DURATION SHORT
+  RISK LEVEL HARMLESS.
 
-DEFINE def_test_class.
-*----------------------------------------------------------------------*
-*       CLASS &1 DEFINITION
-*----------------------------------------------------------------------*
-*
-*----------------------------------------------------------------------*
-class &1 definition
-                    for testing
-                    inheriting from cl_aunit_assert
-                    risk level harmless
-                    duration short.
-  private section.
-    data: &2 TYPE REF TO &3.
+  PRIVATE SECTION.
+    DATA: f_cut TYPE REF TO zcl_test_abap_unit.
+    METHODS:
+      setup,
+      first_test FOR TESTING RAISING cx_static_check,
+      second_test FOR TESTING RAISING cx_static_check,
+      third_test FOR TESTING RAISING cx_static_check,
+      fourth_test FOR TESTING RAISING cx_static_check,
+      fifth FOR TESTING RAISING cx_static_check.
 
-    def_meth setup
-             &4.
-endclass.                    "&1 DEFINITION
-END-OF-DEFINITION.
+ENDCLASS.
 
-def_test_class LCL_ABAP_UNIT
-               m_ref zcl_test_abap_unit
-               test_1.
 
-*----------------------------------------------------------------------*
-*       CLASS lcl_abap_unit IMPLEMENTATION
-*----------------------------------------------------------------------*
-*
-*----------------------------------------------------------------------*
-CLASS lcl_abap_unit IMPLEMENTATION.
-  METHOD setup.
-    create OBJECT m_ref.
-  ENDMETHOD.                    "setup
+CLASS test_abap_unit IMPLEMENTATION.
 
-  METHOD test_1.
-    assert_equals(
-      EXPORTING
-        exp                  = 'Test'
-        act                  = m_ref->test( )
-    ).
+  METHOD first_test.
+
+    f_cut->start( ).
+
   ENDMETHOD.
-ENDCLASS.                    "lcl_abap_unit IMPLEMENTATION
+
+  METHOD second_test.
+
+    f_cut->start2( ).
+
+  ENDMETHOD.
+
+  METHOD setup.
+
+    f_cut = NEW zcl_test_abap_unit( ).
+
+  ENDMETHOD.
+
+  METHOD third_test.
+
+*    cl_abap_unit_assert=>fail( ).
+
+  ENDMETHOD.
+
+  METHOD fourth_test.
+
+*    cl_abap_unit_assert=>assert_true( ).
+
+  ENDMETHOD.
+
+  METHOD fifth.
+
+    cl_abap_unit_assert=>assert_equals( act = 1
+                                        exp = 1
+                                        msg = 'msg' ).
+
+  ENDMETHOD.
+
+ENDCLASS.

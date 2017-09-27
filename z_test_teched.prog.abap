@@ -1,51 +1,17 @@
-*&---------------------------------------------------------------------*
-*& Report z_test_teched
-*&---------------------------------------------------------------------*
-*&
-*&---------------------------------------------------------------------*
 REPORT z_test_teched.
 
-CLASS lcl_main DEFINITION CREATE PUBLIC.
+SELECT * INTO TABLE @DATA(lt_pa0002)
+         FROM z_test_cds_view_teched
+         UP TO 200 ROWS.
 
-  PUBLIC SECTION.
-    CLASS-METHODS create
-      RETURNING
-        VALUE(r_result) TYPE REF TO lcl_main.
+LOOP AT lt_pa0002 ASSIGNING FIELD-SYMBOL(<pa0002>).
+  " do something
+ENDLOOP.
 
-    METHODS: run.
+cl_salv_table=>factory(
+  IMPORTING
+    r_salv_table   = DATA(alv)
+  CHANGING
+    t_table        = lt_pa0002 ).
 
-ENDCLASS.
-
-CLASS lcl_main IMPLEMENTATION.
-
-  METHOD create.
-
-    CREATE OBJECT r_result.
-
-  ENDMETHOD.
-
-  METHOD run.
-
-    DATA(lo_t100) = NEW zcl_t100_teched( ).
-
-    DATA(t100_tab) = lo_t100->get_item_from_db( ).
-
-    TRY.
-
-        cl_salv_table=>factory(
-          IMPORTING
-            r_salv_table   = DATA(alv)
-          CHANGING
-            t_table        = t100_tab ).
-
-        alv->display( ).
-      CATCH cx_salv_msg INTO DATA(error).
-        MESSAGE error  TYPE 'S' DISPLAY LIKE 'E'.
-    ENDTRY.
-
-  ENDMETHOD.
-
-ENDCLASS.
-
-START-OF-SELECTION.
-  lcl_main=>create( )->run( ).
+alv->display( ).

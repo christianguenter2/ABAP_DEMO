@@ -1,0 +1,32 @@
+CLASS zcl_test_class_method DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+    CLASS-METHODS: test.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+    CLASS-METHODS test1234.
+ENDCLASS.
+
+
+
+CLASS zcl_test_class_method IMPLEMENTATION.
+
+  METHOD test.
+
+    test1234( ).
+
+  ENDMETHOD.
+
+  METHOD test1234.
+
+    IF sy-subrc = 0.
+
+    ENDIF.
+
+  ENDMETHOD.
+
+ENDCLASS.

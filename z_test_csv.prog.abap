@@ -1,101 +1,77 @@
 *&---------------------------------------------------------------------*
-*& Report  Z_TEST_CSV
-*&
+*& Report z_test_csv
 *&---------------------------------------------------------------------*
 *&
-*&
 *&---------------------------------------------------------------------*
-
 REPORT z_test_csv.
 
-DATA: lt_data      TYPE STANDARD TABLE OF draw,
-      lv_data      LIKE LINE OF lt_data,
-      lt_xdata     TYPE solix_tab,
-      lo_excel     TYPE REF TO zcl_excel,
-      lo_worksheet TYPE REF TO zcl_excel_worksheet,
-      lo_writer    TYPE REF TO zif_excel_writer,
-      xs           TYPE xstring.
+DATA: data_tab TYPE truxs_t_text_data .
 
-START-OF-SELECTION.
-  select * FROM draw INTO TABLE lt_data
-                     UP TO 10 ROWS.
+cl_gui_frontend_services=>gui_upload(
+  EXPORTING
+    filename                = 'C:\Temp\test.csv'
+    filetype                = 'ASC'
+*    has_field_separator     = has_field_separator    " Spalten durch TAB getrennt bei ASCII Upload
+*    header_length           = header_length    " Länge des Headers bei Binärdaten
+*    read_by_line            = read_by_line    " Die Datei wird zeilenweise in die interne Tabelle geschriebe
+*    dat_mode                = dat_mode    " Zahl- und Datumsfelder werden im 'DAT' Format des ws_downloa
+*    codepage                = codepage    " Zeichenrepräsentation für Ausgabe
+*    ignore_cerr             = ignore_cerr    " Gibt an, ob Fehler bei der Zeichensatzkonvertierung ignorier
+*    replacement             = replacement    " Ersatzzeichen für nicht-konvertierbare Zeichen.
+*    virus_scan_profile      = virus_scan_profile    " Viren-Scan-Profil
+*  IMPORTING
+*    filelength              = filelength    " Dateilänge
+*    header                  = header    " Header der Datei bei binärem Upload
+  CHANGING
+    data_tab                = data_tab
+*    isscanperformed         = isscanperformed    " File ist bereits gescannt
+  EXCEPTIONS
+    file_open_error         = 1
+    file_read_error         = 2
+    no_batch                = 3
+    gui_refuse_filetransfer = 4
+    invalid_type            = 5
+    no_authority            = 6
+    unknown_error           = 7
+    bad_data_format         = 8
+    header_not_allowed      = 9
+    separator_not_allowed   = 10
+    header_too_long         = 11
+    unknown_dp_error        = 12
+    access_denied           = 13
+    dp_out_of_memory        = 14
+    disk_full               = 15
+    dp_timeout              = 16
+    not_supported_by_gui    = 17
+    error_no_gui            = 18
+    OTHERS                  = 19 ).
 
-  CREATE OBJECT lo_excel.
-  lo_worksheet = lo_excel->get_active_worksheet( ).
+IF sy-subrc <> 0.
+  MESSAGE ID sy-msgid TYPE 'S' NUMBER sy-msgno
+          WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4
+          DISPLAY LIKE sy-msgty.
+  RETURN.
+ENDIF.
 
-  lo_worksheet->set_table(
-    EXPORTING
-      ip_table           = lt_data
-      ip_table_title     = 'Test'
-      ip_top_left_column = 'A'
-      ip_top_left_row    = 1 ).
+TYPES: BEGIN OF ty_data,
+         col1 TYPE string,
+         col2 TYPE string,
+       END OF ty_data,
+       tty_data TYPE STANDARD TABLE OF ty_data
+                     WITH NON-UNIQUE DEFAULT KEY.
 
-  CREATE OBJECT lo_writer TYPE zcl_excel_writer_csv.
+DATA: lt_data TYPE tty_data.
 
-  xs = lo_writer->write_file( lo_excel ).
-  cl_bcs_convert=>xstring_to_xtab( EXPORTING iv_xstring = xs
-                                   IMPORTING et_xtab    = lt_xdata ).
+CALL FUNCTION 'TEXT_CONVERT_CSV_TO_SAP'
+  EXPORTING
+*   i_field_seperator    = i_field_seperator
+*   i_line_header        = i_line_header
+    i_tab_raw_data       = data_tab
+*   i_filename           = i_filename
+  TABLES
+    i_tab_converted_data = lt_data
+  EXCEPTIONS
+    conversion_failed    = 1
+    OTHERS               = 2.
 
-  cl_gui_frontend_services=>gui_download(
-    EXPORTING
-*      bin_filesize              = bin_filesize    " Dateilänge bei Binärdateien
-      filename                  = 'c:\temp\test.csv'
-*      filetype                  = 'ASC'    " Dateityp (Ascii, Binär, ...)
-*      append                    = SPACE    " Charakterfeld der Länge 1
-*      write_field_separator     = SPACE    " Spalten durch TAB trennen bei ASCII Download.
-*      header                    = '00'    " Bytekette, die im Binärmodus an den Anfang der Datei geschri
-*      trunc_trailing_blanks     = SPACE    " Bei Char-Feldern Leerzeichen am Ende nicht schreiben
-*      write_lf                  = 'X'    " Beim Char-Download am Zeilenende CR/LF einfügen
-*      col_select                = SPACE    " Es sollen nur einzelne Spalten der Tabelle übertragen werden
-*      col_select_mask           = SPACE    " Vektor, der für zu übertragende Spalten 'X' enthält.
-*      dat_mode                  = SPACE    " Zahl- und Datumsfelder werden im 'DAT' Format des ws_downloa
-*      confirm_overwrite         = SPACE    " Überschreiben der Datei nur nach Bestätigung
-*      no_auth_check             = SPACE    " Überprüfung der Zugriffsrechte abschalten.
-*      codepage                  = SPACE    " Zeichenrepräsentation für Ausgabe
-*      ignore_cerr               = ABAP_TRUE    " Gibt an, ob Fehler bei der Zeichensatzkonvertierung ignorier
-*      replacement               = '#'    " Ersatzzeichen für nicht-konvertierbare Zeichen.
-*      write_bom                 = SPACE    " Schreibt ein Unicode Byte-Order-Mark, falls gesetzt
-*      trunc_trailing_blanks_eol = 'X'    " Remove trailing blanks of the last column
-*      wk1_n_format              = SPACE
-*      wk1_n_size                = SPACE
-*      wk1_t_format              = SPACE
-*      wk1_t_size                = SPACE
-*      show_transfer_status      = 'X'    " Ermöglicht das Unterdrücken der Transfer Status Meldung
-*      fieldnames                = fieldnames    " Feldnamen Tabelle
-*      write_lf_after_last_line  = 'X'    " Schreibt nach letzem Datensatz ein CR/LF
-*      virus_scan_profile        = '/SCET/GUI_DOWNLOAD'    " Viren-Scan-Profil
-*    IMPORTING
-*      filelength                = filelength    " Anzahl der übertragenen Bytes
-    CHANGING
-      data_tab                  = lt_xdata
-    EXCEPTIONS
-      file_write_error          = 1
-      no_batch                  = 2
-      gui_refuse_filetransfer   = 3
-      invalid_type              = 4
-      no_authority              = 5
-      unknown_error             = 6
-      header_not_allowed        = 7
-      separator_not_allowed     = 8
-      filesize_not_allowed      = 9
-      header_too_long           = 10
-      dp_error_create           = 11
-      dp_error_send             = 12
-      dp_error_write            = 13
-      unknown_dp_error          = 14
-      access_denied             = 15
-      dp_out_of_memory          = 16
-      disk_full                 = 17
-      dp_timeout                = 18
-      file_not_found            = 19
-      dataprovider_exception    = 20
-      control_flush_error       = 21
-      not_supported_by_gui      = 22
-      error_no_gui              = 23
-      OTHERS                    = 24
-  ).
-  IF sy-subrc <> 0.
-    MESSAGE ID sy-msgid TYPE 'S' NUMBER sy-msgno
-              WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4
-              DISPLAY LIKE sy-msgty.
-  ENDIF.
+    cl_demo_output=>display( lt_data ).

@@ -1,6 +1,5 @@
 REPORT z_test_adt_regex_dump.
 
-
 DATA: *text TYPE string.
 
 *----------------------------------------------------------------------*
@@ -30,6 +29,7 @@ CLASS test_regex IMPLEMENTATION.
 
   METHOD start.
 
+    _do_something( *text ).
     _do_something( *text ).
     _do_something( *text ).
 

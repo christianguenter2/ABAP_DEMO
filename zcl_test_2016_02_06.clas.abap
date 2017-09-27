@@ -1,0 +1,26 @@
+CLASS zcl_test_2016_02_06 DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+    METHODS:
+      start.
+
+ENDCLASS.
+
+
+
+CLASS zcl_test_2016_02_06 IMPLEMENTATION.
+
+  METHOD start.
+
+
+
+
+
+
+
+  ENDMETHOD.
+
+ENDCLASS.
