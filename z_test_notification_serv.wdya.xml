@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_WDYA" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <APP>
+    <APPLICATION_NAME>Z_TEST_NOTIFICATION_SERV</APPLICATION_NAME>
+    <COMPONENT>Z_TEST_NOTIFICATION_SERV</COMPONENT>
+    <STARTUP_VIEW>WINDOW</STARTUP_VIEW>
+    <STARTUP_PLUG>DEFAULT</STARTUP_PLUG>
+    <DISPLAY_NAME>z_test_notification_serv</DISPLAY_NAME>
+   </APP>
+   <PROPERTIES>
+    <WDY_APP_PROPERTY>
+     <APPLICATION_NAME>Z_TEST_NOTIFICATION_SERV</APPLICATION_NAME>
+     <NAME>WDTHEMEROOT</NAME>
+     <VALUE>sap_corbu</VALUE>
+    </WDY_APP_PROPERTY>
+   </PROPERTIES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

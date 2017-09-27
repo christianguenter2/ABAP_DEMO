@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Test</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZ_TEST_PARALLELTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZ_TEST_PARALLEL</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZRS_ABAP_PARALLEL</FUNCNAME>
+     <INCLUDE>LZ_TEST_PARALLELU01</INCLUDE>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>RS_ABAP_PARALLEL</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>P_CLASS</PARAMETER>
+       <TYP>SYCHAR200</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>P_IN</PARAMETER>
+       <TYP>XSTRING</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>P_OUT</PARAMETER>
+       <TYP>XSTRING</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>P_CLASS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>CHAR(200)</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>P_IN</PARAMETER>
+       <KIND>P</KIND>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>P_OUT</PARAMETER>
+       <KIND>P</KIND>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
