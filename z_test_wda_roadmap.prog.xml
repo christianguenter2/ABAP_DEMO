@@ -153,6 +153,12 @@
      </SPACES>
     </item>
    </DYNPROS>
+   <TPOOL>
+    <item>
+     <ID>R</ID>
+     <LENGTH>23</LENGTH>
+    </item>
+   </TPOOL>
   </asx:values>
  </asx:abap>
 </abapGit>

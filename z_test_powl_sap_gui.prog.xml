@@ -1972,6 +1972,19 @@
      </RSMPE_ATRT>
     </DOC>
    </CUA>
+   <TPOOL>
+    <item>
+     <ID>R</ID>
+     <LENGTH>23</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_APPL</KEY>
+     <ENTRY>.</ENTRY>
+     <LENGTH>9</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+   </TPOOL>
   </asx:values>
  </asx:abap>
 </abapGit>

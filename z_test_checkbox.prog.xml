@@ -11,6 +11,18 @@
     <FIXPT>X</FIXPT>
     <UCCHECK>X</UCCHECK>
    </PROGDIR>
+   <TPOOL>
+    <item>
+     <ID>R</ID>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_CHECK</KEY>
+     <ENTRY>@2N@ Test</ENTRY>
+     <LENGTH>22</LENGTH>
+    </item>
+   </TPOOL>
   </asx:values>
  </asx:abap>
 </abapGit>

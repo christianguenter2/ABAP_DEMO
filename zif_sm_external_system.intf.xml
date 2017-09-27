@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_INTF" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOINTERF>
+    <CLSNAME>ZIF_SM_EXTERNAL_SYSTEM</CLSNAME>
+    <VERSION>1</VERSION>
+    <LANGU>E</LANGU>
+    <DESCRIPT>State Machine - External System</DESCRIPT>
+    <EXPOSURE>2</EXPOSURE>
+    <STATE>1</STATE>
+    <UNICODE>X</UNICODE>
+   </VSEOINTERF>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_SM_EXTERNAL_SYSTEM</CLSNAME>
+     <CMPNAME>POLL_FOR_EVENT</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Poll External System for Event</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_SM_EXTERNAL_SYSTEM</CLSNAME>
+     <CMPNAME>POLL_FOR_EVENT</CMPNAME>
+     <LANGU>T</LANGU>
+     <DESCRIPT>Poll External System for Event</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_SM_EXTERNAL_SYSTEM</CLSNAME>
+     <CMPNAME>SEND_COMMAND</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Send Command to External System</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_SM_EXTERNAL_SYSTEM</CLSNAME>
+     <CMPNAME>SEND_COMMAND</CMPNAME>
+     <LANGU>T</LANGU>
+     <DESCRIPT>Send Command to External System</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
